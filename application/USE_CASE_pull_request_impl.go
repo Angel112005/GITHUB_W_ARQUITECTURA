@@ -20,6 +20,12 @@ func ProcessPullRequest(payload []byte) int {
 		pRID := eventPayload.PullRequest.ID
 
 		log.Printf("Pull Request Recibido:\nID:%d\nBase:%s\nHead:%s\nUser:%s", pRID, base, branch, user)
+	} else if eventPayload.Action == "ready_for_review" {
+		base := eventPayload.PullRequest.Title
+		body := eventPayload.PullRequest.Body
+		user := eventPayload.PullRequest.User.Login
+
+		log.Printf("Pull Request Recibido:\nTitle:%s\nBody:%s\nUser:%s", base, body, user)
 	} else {
 		log.Printf("Pull Request Action no es Closed: %s", eventPayload.Action)
 	}
